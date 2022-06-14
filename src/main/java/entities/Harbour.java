@@ -7,29 +7,25 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "owner")
-public class Owner {
-
+@Table(name = "harbour")
+public class Harbour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long id;
     private String name;
     private String address;
-    private String phone;
+    private String capacity;
 
-
-    @ManyToMany
+    @OneToMany(mappedBy = "harbour")
     private Set<Boat> boats = new HashSet<>();
 
-    public Owner() {
-    }
+    public Harbour(){}
 
-    public Owner(String name, String phone,String address) {
+    public Harbour(String name, String address, String capacity){
         this.name = name;
-        this.phone = phone;
         this.address = address;
-
-
+        this.capacity = capacity;
     }
 
     public long getId() {
@@ -56,30 +52,26 @@ public class Owner {
         this.address = address;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getCapacity() {
+        return capacity;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
     }
 
     public Set<Boat> getBoats() {
         return boats;
     }
 
+    public void setBoats(Set<Boat> boats) {
+        this.boats = boats;
+    }
+
     public void addBoat(Boat boat) {
         this.boats.add(boat);
-        if (!boat.getOwners().contains(this)) {
-            boat.addOwner(this);
+        if(boat.getHarbour()!=this){
+            boat.addHarbour(this);
         }
     }
-
-    public void removeBoat(Boat boat) {
-        this.boats.remove(boat);
-        if (boat.getOwners().contains(this)) {
-            boat.getOwners().remove(this);
-        }
-    }
-
 }
