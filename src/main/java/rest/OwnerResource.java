@@ -54,7 +54,7 @@ public class OwnerResource {
                 .entity(gson.toJson(ownerDTOList))
                 .build();
     }
-    //lav en bruger
+    //lav en bruger j
 
     @POST
     @Path("/createowner")
