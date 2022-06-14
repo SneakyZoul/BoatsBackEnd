@@ -2,22 +2,35 @@ package dtos;
 
 import entities.Boat;
 
-public class BoatDTO {
-        private int id;
-        private String brand;
-        private String make;
-        private String name;
-        private String img;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-        private int harbourId;
+public class BoatDTO  {
+    private int id;
+    private String brand;
+    private String make;
+    private String name;
+    private String img;
+    private int harbourId;
 
-        public BoatDTO(Boat boat) {
-            this.id = boat.getId();
-            this.brand = boat.getBrand();
-            this.make = boat.getMake();
-            this.name = boat.getName();
-            this.img = boat.getImg();
+    public BoatDTO(Boat boat) {
+        this.id = boat.getId();
+        this.brand = boat.getBrand();
+        this.make = boat.getMake();
+        this.name = boat.getName();
+        this.img = boat.getImg();
+        if (boat.getHarbour() != null) {
+            this.harbourId = boat.getHarbour().getId();
         }
+    }
+    public static List<BoatDTO> getDtos(List<Boat> boatList){
+        List<BoatDTO> boatDTOS = new ArrayList();
+        boatList.forEach(boat->boatDTOS.add(new BoatDTO(boat)));
+        return boatDTOS;
+    }
+
+
 
     public int getId() {
         return id;
@@ -65,5 +78,18 @@ public class BoatDTO {
 
     public void setHarbourId(int harbourId) {
         this.harbourId = harbourId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BoatDTO boatDTO = (BoatDTO) o;
+        return id == boatDTO.id && harbourId == boatDTO.harbourId && Objects.equals(brand, boatDTO.brand) && Objects.equals(make, boatDTO.make) && Objects.equals(name, boatDTO.name) && Objects.equals(img, boatDTO.img);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, brand, make, name, img, harbourId);
     }
 }

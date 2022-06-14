@@ -12,7 +12,7 @@ public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     private String name;
     private String address;
     private String phone;
@@ -32,11 +32,11 @@ public class Owner {
 
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -82,4 +82,14 @@ public class Owner {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", boats=" + boats +
+                '}';
+    }
 }

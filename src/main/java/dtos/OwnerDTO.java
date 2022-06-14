@@ -6,31 +6,35 @@ import entities.Owner;
 import java.util.*;
 
 public class OwnerDTO {
-    private long id;
+    private int id;
     private String name;
     private String address;
     private String phone;
 
-    private Set<Boat> boats = new HashSet<>();
+    private Set<BoatDTO> boats = new HashSet<>();
 
     public OwnerDTO(Owner owner){
         this.id = owner.getId();
         this.name = owner.getName();
         this.address = owner.getAddress();
         this.phone = owner.getPhone();
+
+        for (Boat boat : owner.getBoats()) {
+            this.boats.add(new BoatDTO(boat));
+        }
     }
-//    public static List<OwnerDTO> getDtos(List<Owner> ownerList){
-//        List<OwnerDTO> ownerDTOS = new ArrayList();
-//        ownerList.forEach(owner->ownerDTOS.add(new OwnerDTO(owner)));
-//        return ownerDTOS;
-//    }
+    public static List<OwnerDTO> getDtos(List<Owner> ownerList){
+        List<OwnerDTO> ownerDTOS = new ArrayList();
+        ownerList.forEach(owner->ownerDTOS.add(new OwnerDTO(owner)));
+        return ownerDTOS;
+    }
 
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -58,11 +62,11 @@ public class OwnerDTO {
         this.phone = phone;
     }
 
-    public Set<Boat> getBoats() {
+    public Set<BoatDTO> getBoats() {
         return boats;
     }
 
-    public void setBoats(Set<Boat> boats) {
+    public void setBoats(Set<BoatDTO> boats) {
         this.boats = boats;
     }
     @Override

@@ -1,13 +1,16 @@
 package dtos;
 
+import entities.Boat;
 import entities.Harbour;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class HarbourDTO {
 
-    private long id;
+    private int id;
     private String name;
     private String address;
     private String capacity;
@@ -21,13 +24,22 @@ public class HarbourDTO {
         this.name= harbour.getName();
         this.address= harbour.getAddress();
         this.capacity= harbour.getCapacity();
-}
 
-    public long getId() {
+        for (Boat boat: harbour.getBoats()) {
+            this.boats.add(new BoatDTO(boat));
+        }
+}
+        public static List<HarbourDTO> getDtos(List<Harbour> harbourList){
+            List<HarbourDTO> harbourDTOS = new ArrayList();
+            harbourList.forEach(harbour->harbourDTOS.add(new HarbourDTO(harbour)));
+            return harbourDTOS;
+        }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

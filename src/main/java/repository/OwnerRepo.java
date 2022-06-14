@@ -18,8 +18,10 @@ import java.util.Set;
 
 public class OwnerRepo {
 
-    private static EntityManagerFactory emf;
-    private static OwnerRepo instance;
+   private static EntityManagerFactory emf;
+     private static OwnerRepo instance;
+
+     private OwnerRepo(){}
 
 
 
@@ -72,35 +74,15 @@ public class OwnerRepo {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Owner> query = em.createQuery("select o from Owner o", Owner.class);
-            List<OwnerDTO> list = new ArrayList<>();
-            {
-                for (int i = 0; i < list.size(); i++) {
-                    list.add(new OwnerDTO(query.getResultList().get(i)));
-
-                }
-                return list;
-            }
-        } finally {
+            List<Owner> owners = query.getResultList();
+            return OwnerDTO.getDtos(owners);
+            }finally {
             em.close();
-            emf.close();
         }
     }
 
-    // Possible solution
-//    public OwnerDTO getOwnerById(int id) {
-//        EntityManager em = getEntityManager();
-//        try {
-//                TypedQuery<Owner> query = em.createQuery("SELECT o FROM Owner o WHERE o.id=:id", Owner.class);
-//                query.setParameter("id", id);
-//                Owner owner = query.getSingleResult();
-//                return new OwnerDTO(owner);
-//
-//            } finally {
-//                em.close();
-//            }
-//
-//
-//        }
+
+
     public OwnerDTO getOwnerById(int id) {
         EntityManager em = emf.createEntityManager();
         Owner owner = em.find(Owner.class, id);

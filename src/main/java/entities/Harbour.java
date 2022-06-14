@@ -12,7 +12,7 @@ public class Harbour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long id;
+    private int id;
     private String name;
     private String address;
     private String capacity;
@@ -28,11 +28,11 @@ public class Harbour {
         this.capacity = capacity;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,5 +73,16 @@ public class Harbour {
         if(boat.getHarbour()!=this){
             boat.addHarbour(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Harbour{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", capacity='" + capacity + '\'' +
+                ", boats=" + boats +
+                '}';
     }
 }

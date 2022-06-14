@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dtos.HarbourDTO;
 import repository.HarbourRepo;
 import repository.OwnerRepo;
+import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
@@ -17,8 +18,9 @@ import javax.ws.rs.core.Response;
 @Path("harbour")
 public class HarbourResource {
 
-    private static EntityManagerFactory emf;
-    HarbourRepo facade = new HarbourRepo();
+    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+
+    private static final HarbourRepo facade = HarbourRepo.getHarbourRepo(EMF);
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @GET

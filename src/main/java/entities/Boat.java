@@ -94,4 +94,17 @@ public class Boat {
             harbour.addBoat(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Boat{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", make='" + make + '\'' +
+                ", name='" + name + '\'' +
+                ", img='" + img + '\'' +
+                ", owners=" + owners +
+                ", harbour=" + harbour +
+                '}';
+    }
 }

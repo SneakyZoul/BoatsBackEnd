@@ -21,9 +21,9 @@ import java.util.List;
 
 @Path("owner")
 public class OwnerResource {
+    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 
-    private static EntityManagerFactory emf;
-    OwnerRepo facade = new OwnerRepo();
+   private static final OwnerRepo facade = OwnerRepo.getOwnerRepo(EMF);
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 
@@ -54,7 +54,7 @@ public class OwnerResource {
 
         return Response
                 .ok()
-                .entity(ownerDTOList)
+                .entity(gson.toJson(ownerDTOList))
                 .build();
     }
 }
