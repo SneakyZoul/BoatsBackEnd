@@ -9,10 +9,7 @@ import repository.OwnerRepo;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.awt.*;
@@ -57,4 +54,18 @@ public class OwnerResource {
                 .entity(gson.toJson(ownerDTOList))
                 .build();
     }
+
+    @POST
+    @Path("/createowner")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createOwner(String content){
+        OwnerDTO ownerDTO = gson.fromJson(content,OwnerDTO.class);
+        OwnerDTO ownerDTO1 = facade.createOwner(ownerDTO);
+        return Response
+                .ok()
+                .entity(gson.toJson(ownerDTO1))
+                .build();
+    }
+
 }

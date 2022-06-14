@@ -24,7 +24,7 @@ public class Owner {
     public Owner() {
     }
 
-    public Owner(String name, String phone,String address) {
+    public Owner(String name,String address,String phone) {
         this.name = name;
         this.phone = phone;
         this.address = address;
